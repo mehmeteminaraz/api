@@ -1,6 +1,8 @@
 package get_http_request;
 
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
@@ -23,11 +25,19 @@ ve gelen yaslar icinde 21, 61, ve 23 degerlerinden birinin oldugunu test edin.
 
     @Test
     public void test04(){
-        String url= "http://dummy.restapiexample.com/api/v1/employees";
-        Response response= given().when().get(url);
-        response.then().statusCode(200).contentType("application/json");
+        String url ="http://dummy.restapiexample.com/api/v1/employees";
 
+        Response response = given().when().get(url);
 
+        response.prettyPrint();
+
+        response.then().contentType(ContentType.JSON).statusCode(200);
+
+        response.then().assertThat().body("data", Matchers.hasSize(24)
+                , "data.employee_name", Matchers.hasItem("Ashton Cox")
+                , "data.employee_age", Matchers.hasItems(21, 61, 23));
     }
 }
+
+
 

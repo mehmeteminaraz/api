@@ -1,4 +1,4 @@
-package get_http_request;
+package denenmeler;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;

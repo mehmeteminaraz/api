@@ -1,9 +1,8 @@
-package get_http_request;
+package denenmeler;
 
 import base_url.RegresinBaseUrl;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.junit.Assert;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;

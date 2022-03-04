@@ -10,19 +10,29 @@ public class GetRequest02 {
     public void test02(){
         String url="https://reqres.in/api/users";
         Response response=given().when().get(url);
-       /* response.prettyPrint();    body'i getirir
-        response.then().log().all(); herseyi getirir*/
-        response.prettyPeek();       //herseyi getirir
-        response.then().assertThat()
+
+       response.prettyPrint();                  // respostaki body'i getirir
+       // response.then().log().all();        //respostaki herseyi getirir
+        response.prettyPeek();               //herseyi getirir
+
+        //HeaderTest
+         response.then().assertThat()
                 .statusCode(200)
                 .contentType("application/json; charset=utf-8")
                 .statusLine("HTTP/1.1 200 OK");
-        response.then().body("data[1].first_name", Matchers.equalTo("Janet")
-                ,"data[1].last_name",Matchers.equalTo("Weaver")
-                ,"data[1].email",Matchers.equalTo("janet.weaver@reqres.in"));
 
 
+        //Body Test
+        response.then().body("data[1].first_name",equalTo("Janet")
+                ,"data[1].last_name",equalTo("Weaver")
+                ,"data[1].email",equalTo("janet.weaver@reqres.in"));
 
+        //HeaderTest
+        response.then().body("data[1].id",equalTo(2)
+                            ,"data[1].email",equalTo("janet.weaver@reqres.in")
+                            ,"data[1].first_name",equalTo("Janet")
+                            ,"data[1].last_name",equalTo("Weaver")
+                            ,"data[1].avatar",equalTo("https://reqres.in/img/faces/2-image.jpg"));
 
 
     }

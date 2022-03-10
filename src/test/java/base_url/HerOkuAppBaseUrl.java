@@ -5,10 +5,11 @@ import io.restassured.specification.RequestSpecification;
 import org.junit.Before;
 
 public class HerOkuAppBaseUrl {
+
     protected RequestSpecification spec05;
+
     @Before
     public void setUp(){
-        spec05= (RequestSpecification) new RequestSpecBuilder().setBaseUri("https://restful-booker.herokuapp.com");
-
+        spec05= new RequestSpecBuilder().setBaseUri("https://restful-booker.herokuapp.com").build();
     }
 }

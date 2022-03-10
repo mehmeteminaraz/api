@@ -1,4 +1,4 @@
-package get_http_request.day09;
+package get_http_request;
 
 import base_url.HerOkuAppBaseUrl;
 import io.restassured.path.json.JsonPath;
@@ -18,7 +18,7 @@ public class GetRequest22 extends HerOkuAppBaseUrl {
           {
               "firstname": "Ali",
               "lastname": "Can",
-              "totalprice": 500,
+              "totalprice": 700,
               "depositpaid": true,
               "bookingdates": {
                                 "checkin": "2022-02-01",
@@ -32,7 +32,7 @@ public class GetRequest22 extends HerOkuAppBaseUrl {
     @Test
     public void test22(){
         //1) URL OLUSTUR
-        spec05.pathParams("first", "booking", "second", 41);
+        spec05.pathParams("first", "booking", "second", 17);
 
         //2) EXPECTED DATA OLUSTUR
         HerOkuAppTestData expectedObje = new HerOkuAppTestData();
@@ -74,20 +74,20 @@ public class GetRequest22 extends HerOkuAppBaseUrl {
 
         Assert.assertEquals(((Map)expectedTestDataMap.get("bookingdates")).get("checkin"),
                 ((Map)actualData.get("bookingdates")).get("checkin"));
-
         Assert.assertEquals(((Map<?, ?>) expectedTestDataMap.get("bookingdates")).get("checkout"),
                 ((Map<?, ?>) actualData.get("bookingdates")).get("checkout"));
 
-        JsonPath json=response.jsonPath();
-        Assert.assertEquals(expectedTestDataMap.get("firstname"),json.getString("firstname"));
-        Assert.assertEquals(expectedTestDataMap.get("lastname"),json.getString("lastname"));
-        Assert.assertEquals(expectedTestDataMap.get("totalprice"),json.getInt("totalprice"));
-        Assert.assertEquals(expectedTestDataMap.get("depositpaid"),json.getBoolean("depositpaid"));
 
-        Assert.assertEquals(((Map)expectedTestDataMap.get("bookingdates")).get("checkin"),
+        //2. YOL JSON PATH
+        JsonPath json = response.jsonPath();
+        Assert.assertEquals(expectedTestDataMap.get("firstname"), json.getString("firstname"));
+        Assert.assertEquals(expectedTestDataMap.get("lastname"), json.getString("lastname"));
+        Assert.assertEquals(expectedTestDataMap.get("totalprice"), json.getInt("totalprice"));
+        Assert.assertEquals(expectedTestDataMap.get("depositpaid"), json.getBoolean("depositpaid"));
+
+        Assert.assertEquals(((Map<?, ?>) expectedTestDataMap.get("bookingdates")).get("checkin"),
                 json.getString("bookingdates.checkin"));
-
-        Assert.assertEquals(((Map)expectedTestDataMap.get("bookingdates")).get("checkout"),
+        Assert.assertEquals(((Map<?, ?>) expectedTestDataMap.get("bookingdates")).get("checkout"),
                 json.getString("bookingdates.checkout"));
     }
 }
